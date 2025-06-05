@@ -9,3 +9,15 @@ langchain_community
 langchain_huggingface
 beautifulsoup4
 faiss-cpu
+fastapi==0.110.0
+uvicorn==0.27.1
+python-multipart
+python-dotenv
+websockets
+pydub
+ffmpeg-python
+openai-whisper
+requests
+tqdm
+numpy
+streamlit
