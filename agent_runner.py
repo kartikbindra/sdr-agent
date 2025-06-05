@@ -216,3 +216,33 @@ def run_agent(user_input: str) -> str:
     """
     response = agent_executor2.run(user_input)
     return response
+
+def run_agent_streaming(user_input: str) -> dict:
+    from langchain_core.messages import HumanMessage
+
+    final_text = ""
+    tool_outputs = []
+
+    # Stream config (optional)
+    config = {"tags": ["streamlit_agent"]}
+
+    for chunk in agent_executor.stream(
+        {"messages": [HumanMessage(content=user_input)]},
+        config=config
+    ):
+        if "agent" in chunk:
+            messages = chunk["agent"].get("messages", [])
+            for msg in messages:
+                if msg.content:
+                    final_text += msg.content  # accumulate final agent messages
+
+        if "tools" in chunk:
+            messages = chunk["tools"].get("messages", [])
+            for msg in messages:
+                if msg.content:
+                    tool_outputs.append(msg.content)
+
+    return {
+        "text": final_text.strip(),
+        "tool_messages": tool_outputs
+    }

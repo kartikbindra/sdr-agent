@@ -14,13 +14,13 @@ if user_input:
         # response= "Hello"
 
     st.markdown("### Agent Response:")
-    st.markdown(f"**AI Response:** {response['text']}")
+    st.write(response)
 
-    # Media rendering
-    for media in response.get("media", []):
-        if media["type"] == "image":
-            st.image(media["url"], caption="Image Provided")
-        elif media["type"] == "video":
-            st.video(media["url"])
-        elif media["type"] == "pdf":
-            st.markdown(f"[View PDF]({media['url']})")
+    # if response["tool_messages"]:
+    #     st.markdown("### Additional Info / Media")
+    #     for msg in response["tool_messages"]:
+    #         # Try to auto-detect and render links or videos
+    #         if "youtube.com" in msg or "youtu.be" in msg:
+    #             st.video(msg.strip())
+    #         else:
+    #             st.markdown(msg)
